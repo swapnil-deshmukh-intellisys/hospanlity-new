@@ -1,0 +1,6 @@
+<div
+  className="login-left"
+  style={{
+    backgroundImage: `url(${hotelImage})`,
+  }}
+>
