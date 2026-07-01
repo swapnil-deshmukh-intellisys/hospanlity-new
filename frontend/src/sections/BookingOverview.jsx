@@ -11,6 +11,22 @@ import {
 import { FaEllipsisH } from "react-icons/fa";
 import { useState } from "react";
 
+const todayData = [
+  { day: "11 AM", booked: 12, cancelled: 1 },
+  { day: "12 PM", booked: 18, cancelled: 2 },
+  { day: "1 PM", booked: 15, cancelled: 1 },
+  { day: "2 PM", booked: 22, cancelled: 2 },
+  { day: "3 PM", booked: 28, cancelled: 3 },
+  { day: "4 PM", booked: 25, cancelled: 2 },
+  { day: "5 PM", booked: 30, cancelled: 2 },
+  { day: "6 PM", booked: 34, cancelled: 3 },
+  { day: "7 PM", booked: 38, cancelled: 2 },
+  { day: "8 PM", booked: 42, cancelled: 4 },
+  { day: "9 PM", booked: 40, cancelled: 3 },
+  { day: "10 PM", booked: 46, cancelled: 2 },
+  { day: "11 PM", booked: 50, cancelled: 3 },
+];
+
 const weekData = [
   { day: "Mon", booked: 70, cancelled: 8 },
   { day: "Tue", booked: 58, cancelled: 9 },
@@ -20,6 +36,7 @@ const weekData = [
   { day: "Sat", booked: 82, cancelled: 9 },
   { day: "Sun", booked: 82, cancelled: 9 },
 ];
+
 
 const monthData = [
   { day: "Week 1", booked: 320, cancelled: 28 },
@@ -46,12 +63,14 @@ const yearData = [
 export default function BookingOverview() {
   const [range, setRange] = useState("week");
 
-  const data =
-    range === "week"
-      ? weekData
-      : range === "month"
-      ? monthData
-      : yearData;
+ const data =
+  range === "today"
+    ? todayData
+    : range === "week"
+    ? weekData
+    : range === "month"
+    ? monthData
+    : yearData;
 
   return (
     <div className="booking-overview-card">
@@ -78,11 +97,11 @@ export default function BookingOverview() {
         </div>
 
         <div className="booking-actions">
-
-         <select
+<select
   value={range}
   onChange={(e) => setRange(e.target.value)}
 >
+  <option value="today">Today</option>
   <option value="week">Week</option>
   <option value="month">Month</option>
   <option value="year">Year</option>
@@ -94,11 +113,11 @@ export default function BookingOverview() {
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
-
-        <BarChart
-          data={data}
-          barCategoryGap="28%"
-        >
+<BarChart
+    data={data}
+    barGap={0}
+    barCategoryGap="15%"
+>
 
           <CartesianGrid
             vertical={false}
@@ -106,17 +125,17 @@ export default function BookingOverview() {
             stroke="#e8edf4"
           />
 
-          <XAxis
-            dataKey="day"
-            tickLine={false}
-            axisLine={false}
-          />
-
-          <YAxis
-            tickLine={false}
-            axisLine={false}
-          />
-
+   <XAxis
+    dataKey="day"
+    tickLine={false}
+    axisLine={false}
+    interval={0}
+    padding={{ left: 0, right: 0 }}
+/>       <YAxis
+    tickLine={false}
+    axisLine={false}
+    width={30}
+/>
           <Tooltip />
 
           <Bar

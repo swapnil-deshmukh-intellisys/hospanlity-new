@@ -9,8 +9,21 @@ import {
   Tooltip,
 } from "recharts";
 
-
-
+const todayData = [
+  { name: "11 AM", revenue: 18000 },
+  { name: "12 PM", revenue: 24000 },
+  { name: "1 PM", revenue: 22000 },
+  { name: "2 PM", revenue: 31000 },
+  { name: "3 PM", revenue: 42000 },
+  { name: "4 PM", revenue: 47000 },
+  { name: "5 PM", revenue: 52000 },
+  { name: "6 PM", revenue: 56000 },
+  { name: "7 PM", revenue: 61000 },
+  { name: "8 PM", revenue: 68000 },
+  { name: "9 PM", revenue: 72000 },
+  { name: "10 PM", revenue: 78000 },
+  { name: "11 PM", revenue: 85000 },
+];
 const weekData = [
   { name: "Mon", revenue: 165000 },
   { name: "Tue", revenue: 215000 },
@@ -58,12 +71,13 @@ function RevenueOverview() {
   const [range, setRange] = useState("week");
 
   const chartData =
-    range === "week"
-      ? weekData
-      : range === "month"
-      ? monthData
-      : yearData;
-
+  range === "today"
+    ? todayData
+    : range === "week"
+    ? weekData
+    : range === "month"
+    ? monthData
+    : yearData;
   return (
     <div className="revenue-card">
 
@@ -73,16 +87,18 @@ function RevenueOverview() {
           <h3>Revenue Overview</h3>
           <p>Hotel Revenue Analytics</p>
         </div>
-
-       <select
+<select
   value={range}
   onChange={(e) => setRange(e.target.value)}
   className="revenue-select"
 >
+  <option value="today">Today</option>
   <option value="week">Week</option>
   <option value="month">Month</option>
   <option value="year">Year</option>
 </select>
+
+
 
       </div>
 
@@ -109,17 +125,16 @@ function RevenueOverview() {
             vertical={false}
           />
 
-          <XAxis
-            dataKey="name"
-            tickLine={false}
-            axisLine={false}
-            tick={{
-              fill: "#7d879c",
-              fontSize: 13,
-            }}
-          />
-
-          <YAxis
+<XAxis
+  dataKey="name"
+  interval={0}
+  tickLine={false}
+  axisLine={false}
+  tick={{
+    fill: "#7d879c",
+    fontSize: 12,
+  }}
+/>      <YAxis
             tickFormatter={(value) => `₹${value / 1000}K`}
             tick={{
               fill: "#7d879c",

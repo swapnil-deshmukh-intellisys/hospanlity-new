@@ -60,8 +60,8 @@ function BookingStatus() {
                 data={data}
                 cx="50%"
                 cy="50%"
-                innerRadius={72}
-                outerRadius={92}
+                innerRadius={55}
+                outerRadius={80}
                 dataKey="value"
                 startAngle={90}
                 endAngle={-270}

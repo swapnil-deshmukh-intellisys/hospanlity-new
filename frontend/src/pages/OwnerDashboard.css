@@ -330,19 +330,24 @@ SIDEBAR
 /* ==========================
    CARD
 ========================== */
-
 .stat-card{
     background:#fff;
     border-radius:20px;
-    padding:18px 20px;
-    height:132px;
+    padding:16px 20px;
+    height:120px;
 
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     gap:16px;
 
     box-shadow:0 8px 24px rgba(15,23,42,.06);
-    transition:.3s;
+}
+
+.stat-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
 .stat-card:hover{
@@ -414,16 +419,18 @@ SIDEBAR
 .stat-content{
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:space-between;
     flex:1;
+    height:100%;
 }
-
 .stat-content h4{
-    font-size:16px;
+    font-size:15px;
     font-weight:600;
     color:#64748b;
-    margin-bottom:8px;
+    line-height:1.3;
+    margin-bottom:6px;
 }
+
 
 /* ==========================
    VALUE
@@ -433,8 +440,43 @@ SIDEBAR
     display:flex;
     align-items:flex-end;
     gap:4px;
-    margin-bottom:12px;
+    margin:6px 0;
 }
+
+.stat-card{
+    height:135px;
+    padding:18px;
+}
+
+.stat-content{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    flex:1;
+    height:100%;
+}
+
+.growth-row{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+}
+
+.growth{
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+    flex-shrink:0;
+}
+
+.growth-text{
+    font-size:11px;
+    color:#94A3B8;
+    line-height:1.2;
+}
+
 
 .stat-value-row h2{
     font-size:22px;   /* कमी केलं */
@@ -463,24 +505,19 @@ SIDEBAR
 .growth-row{
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-top:8px;
+    gap:10px;
+    margin-top:4px;
 }
 
 .growth{
-    display:inline-flex;
-    justify-content:center;
+    display:flex;
     align-items:center;
-
-    min-width:58px;
-    height:22px;
-
-    padding:0 10px;
-
-    border-radius:999px;
-
+    justify-content:center;
+    padding:4px 10px;
+    border-radius:20px;
     font-size:11px;
     font-weight:700;
+    white-space:nowrap;
 }
 
 
@@ -496,8 +533,8 @@ SIDEBAR
 
 .growth-text{
     font-size:12px;
-    font-weight:500;
     color:#94A3B8;
+    line-height:1.2;
 }
 /* ==========================
    RESPONSIVE
@@ -1169,9 +1206,8 @@ SIDEBAR
 
 .dashboard-row{
     display:grid;
-    grid-template-columns:2fr 1fr 1fr;
-    gap:22px;
-    margin-top:22px;
+    grid-template-columns:2fr 1fr;
+    gap:24px;
     align-items:stretch;
 }
 
@@ -1500,6 +1536,8 @@ height:260px;
     font-size:13px;
 }
 
+
+
 /* ===================================
    BOOKING STATUS
 =================================== */
@@ -1616,6 +1654,96 @@ height:260px;
     color:#111827;
 }
 
+.booking-status-card{
+    background:#fff;
+    border:1px solid #eef2f7;
+    border-radius:22px;
+    padding:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+    width:100%;
+    height:430px;
+    box-sizing:border-box;
+
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.booking-status-header{
+    margin-bottom:20px;
+}
+
+.booking-status-header h3{
+    font-size:18px;
+    font-weight:700;
+    color:#172554;
+}
+
+.booking-status-body{
+    flex:1;
+    display:flex;
+    flex-direction:column;   /* Circle वर, content खाली */
+    align-items:center;
+    justify-content:flex-start;
+}
+
+.status-chart{
+    width:180px;
+    height:180px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.status-chart .recharts-responsive-container{
+    width:180px !important;
+    height:180px !important;
+}
+
+.status-legend{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.status-row{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.status-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#334155;
+    font-size:15px;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+}
+
+.status-item{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.status-item span:last-child{
+    font-weight:700;
+    color:#111827;
+}
+
 /* ======================
    CARD WIDTH
 ====================== */
@@ -1638,7 +1766,8 @@ height:260px;
     box-shadow:0 10px 30px rgba(15,23,42,.05);
 
     width:100%;
-    height:410px;   /* 430px ऐवजी */
+    height:410px;
+    box-sizing:border-box;
 }
 .booking-overview-card .recharts-wrapper{
     margin-top:20px;
@@ -1657,116 +1786,25 @@ height:260px;
     overflow:visible;
 }
 .booking-status-card{
-    background:#fff;
-    border-radius:24px;
-    padding:28px;
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    height:100%;
+    background:#fff;
+    border-radius:24px;
+    padding:24px;
+    border:1px solid #edf2f7;
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+
+    width:100%;
+    height:410px;
+    box-sizing:border-box;
 }
 /* ===========================
    BOOKING STATUS
 =========================== */
 
-.booking-status-card{
-    background:#fff;
-    border:1px solid #eef2f7;
-    border-radius:22px;
-    padding:24px;
-    box-shadow:0 8px 25px rgba(0,0,0,.06);
-    height:430px;
-    display:flex;
-    flex-direction:column;
-}
 
-.booking-status-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-margin-bottom:10px;
-}
-
-.booking-status-header h3{
-    font-size:18px;
-    font-weight:700;
-    color:#172554;
-}
-
-.booking-status-body{
-    flex:1;
-
-    display:flex;
-    justify-content:space-between;
-
-    align-items:flex-start;   /* center ऐवजी */
-
-    gap:20px;
-
-    padding-top:10px;
-}
-.status-chart{
-    width:210px;
-    height:210px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    margin-top:12px;
-}
-.status-chart .recharts-responsive-container{
-    width:180px !important;
-    height:180px !important;
-}
-
-.status-legend{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    justify-content:flex-start;   /* center नको */
-
-    margin-top:22px;
-
-    gap:18px;
-}
-.status-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    min-height:36px;
-}
-.status-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.status-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:15px;
-    color:#334155;
-}
-
-.status-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-}
-
-.status-item span:last-child{
-    font-size:15px;
-    font-weight:700;
-    color:#111827;
-}
 
 /* ==========================================
    QUICK ACTIONS CARD
@@ -1946,9 +1984,9 @@ margin-bottom:10px;
 }
 
 .booking-status-section{
-    width:100%;
+    flex:0.75;   /* आधी 1 असेल तर कमी करा */
+    min-width:0;
 }
-
 .quick-actions-section{
     width:100%;
 }
@@ -4220,4 +4258,46 @@ min-width:1050px;
 
 .upgrade-card button:active {
   transform: scale(0.98);
+}
+
+.revenue-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.revenue-filter-buttons{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.revenue-filter-buttons button{
+
+    padding:8px 18px;
+    border:none;
+    border-radius:10px;
+    background:#f1f5f9;
+    color:#64748b;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.revenue-filter-buttons button:hover{
+
+    background:#dbeafe;
+    color:#2563eb;
+
+}
+
+.revenue-filter-buttons button.active{
+
+    background:#2563eb;
+    color:#fff;
+    box-shadow:0 6px 16px rgba(37,99,235,.25);
+
 }
