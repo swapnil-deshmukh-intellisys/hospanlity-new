@@ -394,19 +394,7 @@ const currentRooms = filteredRooms.slice(
     <option value="Non AC">Non AC</option>
   </select>
 
-  <select
-    value={floorFilter}
-    onChange={(e) =>
-      setFloorFilter(e.target.value)
-    }
-  >
-    <option value="All">All Floors</option>
-    <option value="1">Floor 1</option>
-    <option value="2">Floor 2</option>
-    <option value="3">Floor 3</option>
-    <option value="4">Floor 4</option>
-  </select>
-
+ 
 </div>
       
 
@@ -769,20 +757,39 @@ roomTypes.map((room,index)=>(
         }
       />
 
-      <label>Room Type</label>
-      <select
-        value={newRoom.type}
-        onChange={(e) =>
-          setNewRoom({
-            ...newRoom,
-            type: e.target.value,
-          })
-        }
-      >
-        {roomTypes.map((room,index)=>(
-          <option key={index}>{room}</option>
-        ))}
-      </select>
+<label>Room Type</label>
+<select
+  value={newRoom.type}
+  onChange={(e) =>
+    setNewRoom({
+      ...newRoom,
+      type: e.target.value,
+    })
+  }
+>
+  {roomTypes.map((room, index) => (
+    <option key={index} value={room}>
+      {room}
+    </option>
+  ))}
+</select>
+
+<label>Floor</label>
+<select
+  value={newRoom.floor}
+  onChange={(e) =>
+    setNewRoom({
+      ...newRoom,
+      floor: e.target.value,
+    })
+  }
+>
+  <option value="">Select Floor</option>
+  <option value="1">Floor 1</option>
+  <option value="2">Floor 2</option>
+  <option value="3">Floor 3</option>
+  <option value="4">Floor 4</option>
+</select>
 
       <label>Price</label>
       <input

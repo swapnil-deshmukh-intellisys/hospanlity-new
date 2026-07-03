@@ -1,0 +1,176 @@
+.cp-container {
+  width: 100%;
+  min-height: 420px;
+
+  background: #ffffff;      /* White Background */
+  border: 1px solid #edf2f7;
+  border-radius: 18px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 8px 24px rgba(15,23,42,.06),
+    0 2px 8px rgba(15,23,42,.03);
+
+  font-family: "Inter", sans-serif;
+  transition: all .3s ease;
+}
+
+.cp-container:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(15,23,42,.10);
+}
+/* HEADER */
+.cp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cp-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* TABS */
+.cp-tabs {
+  display: flex;
+  background: #eef2ff;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+}
+
+.cp-tab {
+  border: none;
+  background: transparent;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.cp-tab:hover {
+  color: #111827;
+}
+
+.cp-tab.active {
+  background: #6366f1;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+/* BODY LAYOUT */
+.cp-body {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* LEFT CIRCLE BOX */
+.cp-circleBox {
+  flex: 0 0 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CIRCLE PROGRESS */
+.cp-circle {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.4s ease;
+}
+
+/* INNER WHITE CIRCLE */
+.cp-inner {
+  width: 130px;
+  height: 130px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.04);
+}
+
+.cp-inner h1 {
+  font-size: 26px;
+  margin: 0;
+  color: #111827;
+}
+
+.cp-inner p {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* RIGHT STATS */
+.cp-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* EACH ROW */
+.cp-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* TOP LINE */
+.cp-rowTop {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* PROGRESS BAR */
+.cp-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cp-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* PERCENT TEXT */
+.cp-row small {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: -2px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .cp-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cp-circleBox {
+    width: 100%;
+  }
+}

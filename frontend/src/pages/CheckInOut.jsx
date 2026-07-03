@@ -1,561 +1,505 @@
 import "./CheckInOut.css";
 import { useState } from "react";
+import List from "../pages/List";
+
 import {
-  FaSearch,
-  FaEye,
-  FaFileAlt,
-  FaEdit,
-  FaTrash,
-  FaDownload,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
+
+import {
+  FaBell,
+  FaCalendarAlt,
+  FaClock,
+  FaChevronDown,
   FaSignInAlt,
   FaSignOutAlt,
-  FaBed,
-  FaClock
 } from "react-icons/fa";
 
-function CheckInOut() {
-  const [search, setSearch] = useState("");
-  
-  const [statusFilter, setStatusFilter] = useState("All Status");
-  const [error, setError] = useState("");
-  const [checkInGuestName, setCheckInGuestName] = useState("");
-const [checkOutGuestName, setCheckOutGuestName] = useState("");
-  const [paymentStatus, setPaymentStatus] = useState("");
-const [feedback, setFeedback] = useState("");
-const [roomType, setRoomType] = useState("");
+export default function CheckInOut() {
 
-const [selectedGuest, setSelectedGuest] = useState(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [editMode, setEditMode] = useState(false);
+  /* ===========================
+            STATE
+  =========================== */
 
-  const [guests, setGuests] = useState([
-    {
-      id: 1,
-      name: "Rajesh Sharma",
-      phone: "9876543210",
-      bookingId: "BK-1001",
-      roomNo: "205",
-      checkIn: "18 Jun 2026",
-      checkOut: "20 Jun 2026",
-      nights: 2,
-      guests: 2,
-      status: "Checked In"
+  const [selectedCheckIn, setSelectedCheckIn] = useState("today");
+  const [selectedCheckOut, setSelectedCheckOut] = useState("today");
+
+  /* ===========================
+          CHECK-IN DATA
+  =========================== */
+
+  const checkInData = {
+
+    today:{
+      title:"TODAY'S CHECK-IN",
+      guests:"Guests",
+      total:25,
+
+      chart:[
+        {time:"11 AM",value:5},
+        {time:"12 PM",value:10},
+        {time:"01 PM",value:20},
+        {time:"02 PM",value:18},
+        {time:"03 PM",value:24},
+        {time:"04 PM",value:26},
+        {time:"05 PM",value:35},
+        {time:"06 PM",value:24},
+        {time:"07 PM",value:20},
+        {time:"08 PM",value:21},
+        {time:"09 PM",value:22},
+        {time:"10 PM",value:14},
+        {time:"11 PM",value:10},
+      ]
     },
-    {
-      id: 2,
-      name: "Priya Patel",
-      phone: "8765432109",
-      bookingId: "BK-1002",
-      roomNo: "302",
-      checkIn: "18 Jun 2026",
-      checkOut: "22 Jun 2026",
-      nights: 4,
-      guests: 3,
-      status: "Checked In"
+
+    week:{
+      title:"THIS WEEK CHECK-IN",
+      guests:"Guests",
+      total:176,
+
+      chart:[
+        {time:"Mon",value:25},
+        {time:"Tue",value:32},
+        {time:"Wed",value:28},
+        {time:"Thu",value:36},
+        {time:"Fri",value:42},
+        {time:"Sat",value:46},
+        {time:"Sun",value:39},
+      ]
     },
-    {
-      id: 3,
-      name: "Amit Verma",
-      phone: "7654321098",
-      bookingId: "BK-1003",
-      roomNo: "105",
-      checkIn: "19 Jun 2026",
-      checkOut: "21 Jun 2026",
-      nights: 2,
-      guests: 1,
-      status: "Pending Arrival"
+
+    month:{
+      title:"THIS MONTH CHECK-IN",
+      guests:"Guests",
+      total:742,
+
+      chart:[
+        {time:"W1",value:120},
+        {time:"W2",value:180},
+        {time:"W3",value:220},
+        {time:"W4",value:260},
+      ]
     },
-    {
-      id: 4,
-      name: "Neha Singh",
-      phone: "6543210987",
-      bookingId: "BK-1004",
-      roomNo: "408",
-      checkIn: "18 Jun 2026",
-      checkOut: "19 Jun 2026",
-      nights: 1,
-      guests: 2,
-      status: "Check-out Due"
+
+    year:{
+      title:"THIS YEAR CHECK-IN",
+      guests:"Guests",
+      total:8425,
+
+      chart:[
+        {time:"Jan",value:520},
+        {time:"Feb",value:610},
+        {time:"Mar",value:700},
+        {time:"Apr",value:760},
+        {time:"May",value:820},
+        {time:"Jun",value:910},
+        {time:"Jul",value:980},
+        {time:"Aug",value:1020},
+        {time:"Sep",value:930},
+        {time:"Oct",value:990},
+        {time:"Nov",value:1060},
+        {time:"Dec",value:1180},
+      ]
     }
-  ]);
 
-  const filteredGuests = guests.filter((guest) => {
-    const matchName = guest.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  };
 
-    const matchStatus =
-      statusFilter === "All Status"
-        ? true
-        : guest.status === statusFilter;
+  /* ===========================
+          CHECK-OUT DATA
+  =========================== */
 
-    return matchName && matchStatus;
-  });
+  const checkOutData = {
 
-  return (
-    <div className="check-page">
+    today:{
+      title:"TODAY'S CHECK-OUT",
+      guests:"Guests",
+      total:18,
 
-      <div className="page-heading">
-        <div>
-          <h2>Check-in / Check-out</h2>
-          <p>Manage guest arrivals and departures</p>
+      chart:[
+        {time:"11 AM",value:2},
+        {time:"12 PM",value:6},
+        {time:"01 PM",value:14},
+        {time:"02 PM",value:12},
+        {time:"03 PM",value:16},
+        {time:"04 PM",value:18},
+        {time:"05 PM",value:28},
+        {time:"06 PM",value:16},
+        {time:"07 PM",value:10},
+        {time:"08 PM",value:11},
+        {time:"09 PM",value:13},
+        {time:"10 PM",value:8},
+        {time:"11 PM",value:4},
+      ]
+    },
+
+    week:{
+      title:"THIS WEEK CHECK-OUT",
+      guests:"Guests",
+      total:131,
+
+      chart:[
+        {time:"Mon",value:18},
+        {time:"Tue",value:22},
+        {time:"Wed",value:17},
+        {time:"Thu",value:24},
+        {time:"Fri",value:28},
+        {time:"Sat",value:31},
+        {time:"Sun",value:23},
+      ]
+    },
+
+    month:{
+      title:"THIS MONTH CHECK-OUT",
+      guests:"Guests",
+      total:615,
+
+      chart:[
+        {time:"W1",value:120},
+        {time:"W2",value:145},
+        {time:"W3",value:170},
+        {time:"W4",value:180},
+      ]
+    },
+
+    year:{
+      title:"THIS YEAR CHECK-OUT",
+      guests:"Guests",
+      total:7218,
+
+      chart:[
+        {time:"Jan",value:450},
+        {time:"Feb",value:520},
+        {time:"Mar",value:610},
+        {time:"Apr",value:680},
+        {time:"May",value:720},
+        {time:"Jun",value:760},
+        {time:"Jul",value:820},
+        {time:"Aug",value:790},
+        {time:"Sep",value:760},
+        {time:"Oct",value:840},
+        {time:"Nov",value:910},
+        {time:"Dec",value:980},
+      ]
+    }
+
+  };
+
+  const inData = checkInData[selectedCheckIn];
+  const outData = checkOutData[selectedCheckOut];
+
+    return (
+    <div className="cio-container">
+
+      {/* ================= HEADER ================= */}
+
+      <div className="cio-header">
+
+        <div className="header-left">
+
+          <h1>Check-in / Check-out </h1>
+
+          <p>
+            Real-time guest arrival & departure tracking
+          </p>
+
         </div>
+
+        <div className="header-right">
+
+          <button className="date-btn">
+            <FaCalendarAlt />
+            <span>19 May 2026</span>
+          </button>
+
+          <button className="notification-btn">
+            <FaBell />
+            <span className="badge">5</span>
+          </button>
+
+          <div className="profile-box">
+
+            <img
+              src="https://i.pravatar.cc/80?img=12"
+              alt="profile"
+            />
+
+            <div className="profile-info">
+
+              <h4>Arjun Mehta</h4>
+
+              <span>Manager</span>
+
+            </div>
+
+            <FaChevronDown />
+
+          </div>
+
+        </div>
+
       </div>
-    
-      {/* ✅ PASTE MODAL HERE (OUTSIDE TABLE + FORMS BUT INSIDE check-page) */}
 
-      {isModalOpen && selectedGuest && (
-        <div className="modal-overlay">
-          <div className="modal">
+      {/* ================= TIME BAR ================= */}
 
-            <h3>
-              {editMode ? "Edit Guest" : "Guest Details"}
-            </h3>
+  
 
-            <input
-              disabled={!editMode}
-              value={selectedGuest.name}
-              onChange={(e) =>
-                setSelectedGuest({
-                  ...selectedGuest,
-                  name: e.target.value
-                })
-              }
-            />
+      {/* ================= GRAPH ROW ================= */}
 
-            <input
-              disabled={!editMode}
-              value={selectedGuest.phone}
-              onChange={(e) =>
-                setSelectedGuest({
-                  ...selectedGuest,
-                  phone: e.target.value
-                })
-              }
-            />
+      <div className="graphs-row">
 
-            <input
-              disabled={!editMode}
-              value={selectedGuest.roomNo}
-              onChange={(e) =>
-                setSelectedGuest({
-                  ...selectedGuest,
-                  roomNo: e.target.value
-                })
-              }
-            />
+        {/* ================= CHECK-IN CARD ================= */}
 
-            <div className="modal-buttons">
+        <div className="graph-card checkin-card">
 
-              <button onClick={() => setIsModalOpen(false)}>
-                Close
-              </button>
+          <div className="graph-top">
 
-              {editMode && (
-                <button onClick={handleSave}>
-                  Save
+            <div className="graph-heading">
+
+              <div className="graph-icon green">
+
+                <FaSignInAlt />
+
+              </div>
+
+              <div>
+
+                <span>{inData.title}</span>
+
+                <h2>{inData.total}</h2>
+
+                <small>{inData.guests}</small>
+
+              </div>
+
+            </div>
+
+            <div className="graph-filter">
+
+              {["today", "week", "month", "year"].map((item) => (
+
+                <button
+                  key={item}
+                  className={
+                    selectedCheckIn === item
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() =>
+                    setSelectedCheckIn(item)
+                  }
+                >
+                  {item.charAt(0).toUpperCase() +
+                    item.slice(1)}
                 </button>
-              )}
+
+              ))}
 
             </div>
 
           </div>
-        </div>
-      )}
 
-    
-      {/* STATS */}
-
-      <div className="stats-row">
-
-        <div className="top-card green">
-          <div className="icon-box">
-            <FaSignInAlt />
-          </div>
-
-          <div>
-            <h5>Today's Check-ins</h5>
-            <h2>25</h2>
-            <p>Guests Arriving Today</p>
-          </div>
-        </div>
-
-        <div className="top-card red">
-          <div className="icon-box">
-            <FaSignOutAlt />
-          </div>
-
-          <div>
-            <h5>Today's Check-outs</h5>
-            <h2>18</h2>
-            <p>Guests Leaving Today</p>
-          </div>
-        </div>
-
-        <div className="top-card blue">
-          <div className="icon-box">
-            <FaBed />
-          </div>
-
-          <div>
-            <h5>Occupied Rooms</h5>
-            <h2>142</h2>
-            <p>Rooms Currently Occupied</p>
-          </div>
-        </div>
-
-        <div className="top-card orange">
-          <div className="icon-box">
-            <FaClock />
-          </div>
-
-          <div>
-            <h5>Pending Check-ins</h5>
-            <h2>6</h2>
-            <p>Awaiting Arrival</p>
-          </div>
-        </div>
-
-      </div>
-
-      {/* FILTERS */}
-
-      <div className="filter-bar">
-
-        <div className="search-box">
-          <FaSearch />
-          <input
-            type="text"
-            placeholder="Search guest name, room no, booking id..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-<select
-  value={statusFilter}
-  onChange={(e) => setStatusFilter(e.target.value)}
->
-  <option>All Status</option>
-  <option>Checked In</option>
-  <option>Pending Arrival</option>
-  <option>Check-out Due</option>
-  <option>Checked Out</option>
-</select>
-        <input type="date" />
-
-        <button className="export-btn">
-          <FaDownload />
-          Export
-        </button>
-
-      </div>
-
-      {/* TABLE */}
-
-      <div className="table-card">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Guest Name</th>
-              <th>Booking ID</th>
-              <th>Room No</th>
-              <th>Check-in Date</th>
-              <th>Check-out Date</th>
-              <th>Nights</th>
-              <th>Guests</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            {filteredGuests.map((guest) => (
-
-              <tr key={guest.id}>
-
-                <td>
-                  <div className="guest-info">
-                   
-
-                    <div>
-                      <strong>{guest.name}</strong>
-                      <span>{guest.phone}</span>
-                    </div>
-                  </div>
-                </td>
-
-                <td>{guest.bookingId}</td>
-                <td>{guest.roomNo}</td>
-                <td>{guest.checkIn}</td>
-                <td>{guest.checkOut}</td>
-                <td>{guest.nights}</td>
-                <td>{guest.guests}</td>
-
-                <td>
-                  <span
-                    className={`status-badge ${
-                      guest.status === "Checked In"
-  ? "checked"
-  : guest.status === "Pending Arrival"
-  ? "pending"
-  : guest.status === "Checked Out"
-  ? "checkout"
-  : "due"
-                    }`}
-                  >
-                    {guest.status}
-                  </span>
-                </td>
-
-                <td>
-<button className="action-btn blue" onClick={() => {
-  setSelectedGuest(guest);
-  setEditMode(false);
-  setIsModalOpen(true);
-}}>
-  <FaEye />
-</button>
-
-<button className="action-btn purple" onClick={() => {
-  setSelectedGuest(guest);
-  setEditMode(true);
-  setIsModalOpen(true);
-}}>
-  <FaEdit />
-</button>
-
-<button className="action-btn red" onClick={() => {
-  const updated = guests.filter((g) => g.id !== guest.id);
-  setGuests(updated);
-}}>
-  <FaTrash />
-</button>
-                </td>
-
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-      {/* FORMS */}
-
-      <div className="form-row">
-
-       <div className="check-form">
-
-<h3>Check-in Guest</h3>
-
-<div className="form-grid">
-
-<input
-
-placeholder="Guest Name"
-
-value={checkInGuestName}
-onChange={(e) => setCheckInGuestName(e.target.value)}
-
-/>
-
-<input placeholder="Booking ID" />
-
-<input placeholder="Room Number" />
-<select
-  value={roomType}
-  onChange={(e) =>
-    setRoomType(e.target.value)
-  }
->
-<option>Select Room Type</option>
-
-<option>Standard Room</option>
-
-<option>Deluxe Room</option>
-
-<option>Suite Room</option>
-
-</select>
-
-<input type="date" />
-
-<input type="time" />
-
-<input placeholder="ID Number" />
-
-<input placeholder="Special Requests" />
-
-</div>
-
-{/* 👇 Error message इथे show होईल */}
-
-{error && <p className="error">{error}</p>}
-
-<div className="form-buttons">
-
-<button className="cancel-btn">Cancel</button>
-
-<button
-
-className="primary-btn"
-
-onClick={() => {
-
-if (checkInGuestName === ""){
-
-setError("Guest Name Required");
-
-return;
-
-}
-
-setError("");
-
-const newGuest = {
-
-id: guests.length + 1,
-name: checkInGuestName,
-
-phone: "9999999999",
-
-bookingId: "BK-" + (guests.length + 1001),
-
-roomNo: "101",
-
-checkIn: "19 Jun 2026",
-
-checkOut: "-",
-
-nights: 1,
-
-guests: 1,
-
-status: "Checked In"
-
-};
-
-setGuests([...guests, newGuest]);
-
-setCheckInGuestName("");
-
-}}
-
->
-
-Confirm Check-In
-
-</button>
-
-</div>
-
-</div>
-
-        <div className="check-form">
-
-          <h3>Check-out Guest</h3>
-
-          <div className="form-grid">
-<input
-  placeholder="Guest Name"
-  value={checkOutGuestName}
-  onChange={(e) => setCheckOutGuestName(e.target.value)}
-/>       <input placeholder="Room Number" />
-
-            <input type="date" />
-            <input type="time" />
-
-          </div>
-
-         <input
-  type="email"
-  placeholder="Guest Email"
-/>
-
-<select
-  value={paymentStatus}
-  onChange={(e) =>
-    setPaymentStatus(e.target.value)
-  }
->
-  <option value="">
-    Payment Status
-  </option>
-
-  <option value="Paid">
-    Paid
-  </option>
-
-  <option value="Pending">
-    Pending
-  </option>
-</select>
-<textarea
-  value={feedback}
-  onChange={(e) =>
-    setFeedback(e.target.value)
-  }
-  placeholder="Guest Feedback"
-  rows="4"
-/>
-
-          <div className="form-buttons">
-
-            <button className="cancel-btn">
-              Cancel
-            </button>
-<button
-  className="checkout-btn"
-  onClick={() => {
-
-    if (paymentStatus === "") {
-      alert("Select Payment Status");
-      return;
-    }
-
-    if (paymentStatus === "Pending") {
-      alert("Please clear billing before checkout");
-      return;
-    }
-
-    const updatedGuests = guests.map((guest) => {
-  if (
-    guest.name.toLowerCase().trim() ===
-    checkOutGuestName.toLowerCase().trim()
-  ) {
-    return {
-      ...guest,
-      status: "Checked Out",
-      checkOut: new Date().toLocaleDateString()
-    };
-  }
-  return guest;
-});
-    setGuests(updatedGuests);
-
-    alert("Guest Checked Out Successfully");
-
-    setCheckOutGuestName("");
-    setPaymentStatus("");
-    setFeedback("");
-  }}
->
-  Confirm Check-Out
-</button>
-
-          </div>
+          <ResponsiveContainer
+            width="100%"
+            height={260}
+          >
+
+            <AreaChart data={inData.chart}>
+
+              <defs>
+
+                <linearGradient
+                  id="greenFill"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+
+                  <stop
+                    offset="0%"
+                    stopColor="#16a34a"
+                    stopOpacity={0.35}
+                  />
+
+                  <stop
+                    offset="100%"
+                    stopColor="#16a34a"
+                    stopOpacity={0}
+                  />
+
+                </linearGradient>
+
+              </defs>
+
+              <CartesianGrid
+                vertical={false}
+                stroke="#eef2f7"
+              />
+
+              <XAxis dataKey="time" />
+
+              <YAxis />
+
+              <Tooltip />
+                            <Area
+                type="natural"
+                dataKey="value"
+                stroke="#10b981"
+                strokeWidth={3}
+                fill="url(#greenFill)"
+                dot={{
+                  r: 3,
+                  fill: "#10b981",
+                  stroke: "#fff",
+                  strokeWidth: 2,
+                }}
+                activeDot={{
+                  r: 6,
+                  fill: "#10b981",
+                  stroke: "#fff",
+                  strokeWidth: 2,
+                }}
+              />
+
+            </AreaChart>
+
+          </ResponsiveContainer>
 
         </div>
 
-      </div>
+        {/* ================= CHECK-OUT CARD ================= */}
+
+        <div className="graph-card checkout-card">
+
+          <div className="graph-top">
+
+            <div className="graph-heading">
+
+              <div className="graph-icon red">
+
+                <FaSignOutAlt />
+
+              </div>
+
+              <div>
+
+                <span>{outData.title}</span>
+
+                <h2>{outData.total}</h2>
+
+                <small>{outData.guests}</small>
+
+              </div>
+
+            </div>
+
+            <div className="graph-filter">
+
+              {["today", "week", "month", "year"].map((item) => (
+
+                <button
+                  key={item}
+                  className={
+                    selectedCheckOut === item
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() =>
+                    setSelectedCheckOut(item)
+                  }
+                >
+                  {item.charAt(0).toUpperCase() +
+                    item.slice(1)}
+                </button>
+
+              ))}
+
+            </div>
+
+          </div>
+
+          <ResponsiveContainer
+            width="100%"
+            height={260}
+          >
+
+            <AreaChart data={outData.chart}>
+
+              <defs>
+
+                <linearGradient
+                  id="redFill"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+
+                  <stop
+                    offset="0%"
+                    stopColor="#ef4444"
+                    stopOpacity={0.35}
+                  />
+
+                  <stop
+                    offset="100%"
+                    stopColor="#ef4444"
+                    stopOpacity={0}
+                  />
+
+                </linearGradient>
+
+              </defs>
+
+              <CartesianGrid
+                vertical={false}
+                stroke="#eef2f7"
+              />
+
+              <XAxis dataKey="time" />
+
+              <YAxis />
+
+              <Tooltip />
+                            <Area
+                type="natural"
+                dataKey="value"
+                stroke="#ef4444"
+                strokeWidth={3}
+                fill="url(#redFill)"
+                dot={{
+                  r: 3,
+                  fill: "#ef4444",
+                  stroke: "#ffffff",
+                  strokeWidth: 2,
+                }}
+                activeDot={{
+                  r: 6,
+                  fill: "#ef4444",
+                  stroke: "#ffffff",
+                  strokeWidth: 2,
+                }}
+              />
+
+            </AreaChart>
+
+          </ResponsiveContainer>
 
     </div>
-  );
-}
 
-export default CheckInOut;
+      </div>
+
+      {/* Guest List */}
+      <List />
+
+    </div>
+
+  );
+
+}

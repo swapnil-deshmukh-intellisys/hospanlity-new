@@ -1,0 +1,207 @@
+/* =========================
+   ACTIVITY CARD WRAPPER
+========================= */
+.activity-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.activity-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.view-all {
+  font-size: 12px;
+  color: #6366f1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.view-all:hover {
+  color: #4f46e5;
+  transform: translateX(2px);
+}
+
+/* =========================
+   TIMELINE CONTAINER
+========================= */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+
+/* =========================
+   EACH ITEM
+========================= */
+.timeline-item {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  padding: 6px 6px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.timeline-item:hover {
+  background: #f9fafb;
+}
+
+/* =========================
+   LEFT SIDE (DOT + LINE)
+========================= */
+.left {
+  position: relative;
+  width: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* DOT */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 0 4px #f3f4f6;
+}
+
+/* STATUS COLORS */
+.dot.done {
+  background: #22c55e;
+}
+
+.dot.progress {
+  background: #3b82f6;
+}
+
+.dot.start {
+  background: #06b6d4;
+}
+
+.dot.schedule {
+  background: #f59e0b;
+}
+
+.dot.pending {
+  background: #ef4444;
+}
+
+/* LINE */
+.line {
+  position: absolute;
+  top: 14px;
+  width: 2px;
+  height: 100%;
+  background: #e5e7eb;
+  z-index: 1;
+}
+
+/* =========================
+   CONTENT
+========================= */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+/* TIME */
+.time {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* TEXT */
+.text {
+  font-size: 13px;
+  color: #111827;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.text span {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .activity-card {
+    padding: 14px;
+  }
+
+  .text {
+    font-size: 12.5px;
+  }
+
+  .time {
+    font-size: 10px;
+  }
+}
+
+.today-activity-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* prevents overlap */
+}
+.activity-card,
+.cp-container {
+  background: #fff;
+  border-radius: 20px;
+  padding: 22px;
+  border: 1px solid #edf2f7;
+  box-shadow:
+      0 10px 30px rgba(15,23,42,.06),
+      0 2px 8px rgba(15,23,42,.03);
+  transition: all .3s ease;
+}
+
+.activity-card:hover,
+.cp-container:hover{
+    transform: translateY(-4px);
+    box-shadow:
+      0 18px 40px rgba(15,23,42,.10);
+}
+.today-section {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.today-cards-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  margin-top: 24px;
+  align-items: stretch;
+}
+
